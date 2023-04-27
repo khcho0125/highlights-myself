@@ -20,7 +20,7 @@ object LocalDateTimeSerializer : KSerializer<LocalDateTime> {
     }
 
     override fun serialize(encoder: Encoder, value: LocalDateTime) {
-        val formattedValue: String = formatter.format(value)
+        val formattedValue: String = formatter.format(value.withNano(0))
         encoder.encodeString(formattedValue)
     }
 }
