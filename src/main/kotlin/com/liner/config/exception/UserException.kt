@@ -3,7 +3,7 @@ package com.liner.config.exception
 object UserException {
 
     class NotFound(override val message: String? = null) :
-        DomainException.NotFound(UserErrorCode.NOT_FOUND, message)
+        DomainException.NotFound(message, UserErrorCode.NOT_FOUND)
 }
 
 enum class UserErrorCode(

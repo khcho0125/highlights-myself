@@ -1,29 +1,29 @@
 package com.liner.config.exception
 
 sealed class DomainException(
-    open val code: ErrorCode,
-    override val message: String?
+    override val message: String?,
+    open val code: ErrorCode
 ) : Throwable(message) {
 
     open class BadRequest(
-        override val code: ErrorCode = DomainErrorCode.BAD_REQUEST,
-        override val message: String? = null
-    ) : DomainException(code, message)
+        override val message: String? = null,
+        override val code: ErrorCode = DomainErrorCode.BAD_REQUEST
+    ) : DomainException(message, code)
 
     open class Unauthorized(
-        override val code: ErrorCode = DomainErrorCode.UNAUTHORIZED,
-        override val message: String? = null
-    ) : DomainException(code, message)
+        override val message: String? = null,
+        override val code: ErrorCode = DomainErrorCode.UNAUTHORIZED
+    ) : DomainException(message, code)
 
     open class NotFound(
-        override val code: ErrorCode = DomainErrorCode.NOT_FOUND,
-        override val message: String? = null
-    ) : DomainException(code, message)
+        override val message: String? = null,
+        override val code: ErrorCode = DomainErrorCode.NOT_FOUND
+    ) : DomainException(message, code)
 
     open class InternalError(
-        override val code: ErrorCode = DomainErrorCode.INTERNAL_SERVER_ERROR,
-        override val message: String? = null
-    ) : DomainException(code, message)
+        override val message: String? = null,
+        override val code: ErrorCode = DomainErrorCode.INTERNAL_SERVER_ERROR
+    ) : DomainException(message, code)
 }
 
 interface ErrorCode {
