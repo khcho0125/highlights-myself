@@ -5,8 +5,23 @@ sealed class DomainException(
     override val message: String?
 ) : Throwable(message) {
 
+    open class BadRequest(
+        override val code: ErrorCode = DomainErrorCode.BAD_REQUEST,
+        override val message: String? = null
+    ) : DomainException(code, message)
+
+    open class Unauthorized(
+        override val code: ErrorCode = DomainErrorCode.UNAUTHORIZED,
+        override val message: String? = null
+    ) : DomainException(code, message)
+
     open class NotFound(
         override val code: ErrorCode = DomainErrorCode.NOT_FOUND,
+        override val message: String? = null
+    ) : DomainException(code, message)
+
+    open class InternalError(
+        override val code: ErrorCode = DomainErrorCode.INTERNAL_SERVER_ERROR,
         override val message: String? = null
     ) : DomainException(code, message)
 }
@@ -17,10 +32,10 @@ interface ErrorCode {
 
     val header: String
 
-    fun serial(): String = "$-${formatPattern.format(sequence)}"
+    fun serial(): String = "$header-${formatPattern.format(sequence)}"
 
     companion object {
-        const val formatPattern: String = "%03"
+        const val formatPattern: String = "%03d"
     }
 }
 
@@ -32,6 +47,7 @@ enum class DomainErrorCode(
     BAD_REQUEST(1, "Bad Request"),
     UNAUTHORIZED(2, "Unauthorized"),
     NOT_FOUND(3, "Not Found"),
+    INTERNAL_SERVER_ERROR(4, "Internal Server Error")
 
     ;
 
