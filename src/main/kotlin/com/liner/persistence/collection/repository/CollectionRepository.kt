@@ -1,3 +1,6 @@
 package com.liner.persistence.collection.repository
 
-interface CollectionRepository
+interface CollectionRepository {
+
+    suspend fun existsById(id: Int) : Boolean
+}

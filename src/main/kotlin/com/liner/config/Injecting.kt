@@ -3,6 +3,7 @@ package com.liner.config
 import com.liner.api.includeCollection
 import com.liner.api.includeHighlight
 import com.liner.api.includeUser
+import com.liner.persistence.highlight.factory.HighlightQueryFactory
 import com.liner.persistence.highlight.repository.HighlightRepository
 import com.liner.persistence.user.factory.UserQueryFactory
 import com.liner.persistence.user.repository.UserRepository
@@ -18,7 +19,7 @@ fun Application.configureInject() {
     startKoin {
         modules(
             includeCollection(),
-//            includeHighlight(),
+            includeHighlight(),
             includeUser(),
             includeFactory()
         )
@@ -26,5 +27,6 @@ fun Application.configureInject() {
 }
 
 private fun KoinApplication.includeFactory(): Module = module {
+    singleOf(::HighlightQueryFactory) bind HighlightRepository::class
     singleOf(::UserQueryFactory) bind UserRepository::class
 }
