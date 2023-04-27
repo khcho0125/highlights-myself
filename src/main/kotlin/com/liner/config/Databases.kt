@@ -1,6 +1,7 @@
 package com.liner.config
 
 import com.liner.persistence.collection.entity.CollectionTable
+import com.liner.persistence.highlight.entity.HighlightGroupTable
 import com.liner.persistence.highlight.entity.HighlightTable
 import com.liner.persistence.user.entity.UserTable
 import com.zaxxer.hikari.HikariConfig
@@ -20,7 +21,8 @@ fun Application.configureDatabases() {
         SchemaUtils.create(
             CollectionTable,
             HighlightTable,
-            UserTable
+            UserTable,
+            HighlightGroupTable
         )
     }
 }
