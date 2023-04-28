@@ -56,5 +56,5 @@ detekt {
     toolVersion = detekt_version
     buildUponDefaultConfig = true
     autoCorrect = true
-    config.setFrom(files("$rootDir/src/main/resources/detekt-config.yml"))
+    config.setFrom(files("$rootDir/rule/detekt-config.yml"))
 }
