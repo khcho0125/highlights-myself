@@ -16,10 +16,13 @@ class StoreInCollection(
 ) {
 
     suspend operator fun invoke(request: Request, highlightId: Int) : Unit = dbQuery {
+
+        // 하이라이트 여부 검사
          if(highlightRepository.existsById(highlightId)) {
              throw HighlightException.NotFound()
          }
 
+        // 컬렉션 ID 리스트 유효성 검사
         if(request.collectionIds.all { collectionRepository.existsByIdAndUserId(it, request.userId) }) {
             throw CollectionException.NotFound()
         }
