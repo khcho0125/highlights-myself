@@ -16,6 +16,7 @@ class UserQueryFactory : UserRepository {
     override suspend fun existsById(id: Int): Boolean {
         return UserTable
             .select { UserTable.id eq id }
-            .empty()
+            .limit(1)
+            .empty().not()
     }
 }

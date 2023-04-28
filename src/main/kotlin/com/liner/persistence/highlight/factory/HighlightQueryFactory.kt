@@ -16,7 +16,8 @@ class HighlightQueryFactory : HighlightRepository {
     override suspend fun existsById(id: Int): Boolean {
         return HighlightTable
             .select { HighlightTable.id eq id }
-            .empty()
+            .limit(1)
+            .empty().not()
     }
 
     override suspend fun findById(id: Int): Highlight? {
