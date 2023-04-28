@@ -1,7 +1,6 @@
 package com.liner.persistence.highlight.factory
 
 import com.liner.domain.highlight.Highlight
-import com.liner.persistence.highlight.entity.HighlightStorageTable
 import com.liner.persistence.highlight.entity.HighlightTable
 import com.liner.persistence.highlight.repository.HighlightRepository
 import org.jetbrains.exposed.sql.ResultRow
@@ -13,6 +12,12 @@ class HighlightQueryFactory : HighlightRepository {
         id = row[HighlightTable.id].value,
         content = row[HighlightTable.content]
     )
+
+    override suspend fun existsById(id: Int): Boolean {
+        return HighlightTable
+            .select { HighlightTable.id eq id }
+            .empty()
+    }
 
     override suspend fun findById(id: Int): Highlight? {
         return HighlightTable
