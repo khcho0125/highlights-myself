@@ -6,5 +6,5 @@ interface UserRepository {
 
     suspend fun insert(user: User): Int
 
-    suspend fun existsById(id: Int) : Boolean
+    suspend fun existsById(id: Int): Boolean
 }

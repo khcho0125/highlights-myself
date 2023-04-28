@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
 
 class HighlightQueryFactory : HighlightRepository {
-    private fun toDomain(row: ResultRow) : Highlight = Highlight(
+    private fun toDomain(row: ResultRow): Highlight = Highlight(
         id = row[HighlightTable.id].value,
         content = row[HighlightTable.content]
     )

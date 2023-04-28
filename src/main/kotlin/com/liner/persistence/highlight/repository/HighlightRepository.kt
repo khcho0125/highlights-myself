@@ -4,9 +4,9 @@ import com.liner.domain.highlight.Highlight
 
 interface HighlightRepository {
 
-    suspend fun existsById(id: Int) : Boolean
+    suspend fun existsById(id: Int): Boolean
 
-    suspend fun findById(id: Int) : Highlight?
+    suspend fun findById(id: Int): Highlight?
 
     suspend fun insert(highlight: Highlight): Int
 }
