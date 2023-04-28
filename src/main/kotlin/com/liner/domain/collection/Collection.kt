@@ -1,9 +1,8 @@
 package com.liner.domain.collection
 
 data class Collection(
-    val id: Int,
+    val id: Int = 0,
     val userId: Int,
-    val highlightCount: Int,
     val name: String,
     val parentId: Int?
 ) {
