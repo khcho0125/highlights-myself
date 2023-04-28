@@ -6,10 +6,6 @@ data class Highlight(
 ) {
 
     companion object {
-        fun new(content: String): Highlight = Highlight(
-            content = content
-        )
-
         const val CONTENT_LENGTH_LIMIT: Int = 255
     }
 }
