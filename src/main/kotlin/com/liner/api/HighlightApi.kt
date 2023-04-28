@@ -1,8 +1,9 @@
 package com.liner.api
 
 import com.liner.application.highlight.usecase.SaveHighlight
+import com.liner.application.highlight.usecase.StoreInCollection
+import com.liner.config.exception.DomainException
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.Application
 import io.ktor.server.application.call
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -12,12 +13,11 @@ import org.koin.core.KoinApplication
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
-import org.koin.dsl.koinApplication
 import org.koin.dsl.module
-import org.koin.ktor.plugin.koin
 
 class HighlightApi(
-    saveHighlight: SaveHighlight
+    saveHighlight: SaveHighlight,
+    storeHighlight: StoreInCollection
 ) : Api({
     route("/highlight") {
         post {
@@ -28,10 +28,25 @@ class HighlightApi(
                 status = HttpStatusCode.Created
             )
         }
+
+        post("/{highlight-id}") {
+            val highlightId: Int = call.parameters["highlight-id"]?.toInt()
+                ?: throw DomainException.BadRequest("Require Highlight ID")
+
+            val request: StoreInCollection.Request = call.receive()
+
+            call.respond(
+                message = storeHighlight(
+                    request = request,
+                    highlightId = highlightId
+                )
+            )
+        }
     }
 })
 
 fun KoinApplication.includeHighlight(): Module = module {
     singleOf(::SaveHighlight)
+    singleOf(::StoreInCollection)
     singleOf(::HighlightApi) bind Api::class
 }
