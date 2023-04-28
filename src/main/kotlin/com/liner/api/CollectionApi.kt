@@ -34,5 +34,6 @@ class CollectionApi(
 })
 
 fun KoinApplication.includeCollection(): Module = module {
+    singleOf(::CreateCollection)
     singleOf(::CollectionApi) bind Api::class
 }
