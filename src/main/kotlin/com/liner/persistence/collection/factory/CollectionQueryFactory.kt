@@ -3,19 +3,17 @@ package com.liner.persistence.collection.factory
 import com.liner.domain.collection.Collection
 import com.liner.persistence.collection.entity.CollectionTable
 import com.liner.persistence.collection.repository.CollectionRepository
-import org.jetbrains.exposed.sql.Expression
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
-import javax.management.Query.and
 
 class CollectionQueryFactory : CollectionRepository {
 
     override suspend fun existsByIdAndUserId(id: Int, userId: Int): Boolean {
         return CollectionTable
             .select {
-                CollectionTable.id eq id
-                CollectionTable.userId eq userId
+                CollectionTable.id eq id and
+                (CollectionTable.userId eq userId)
             }
             .limit(1)
             .empty().not()
