@@ -17,6 +17,7 @@ class SaveHighlight(
         return@dbQuery Response(highlightId)
     }
 
+    @Serializable
     data class Request(
         val content: String
     )
