@@ -15,8 +15,8 @@ class CreateCollection(
 
     suspend operator fun invoke(request: Request, userId: Int) : Response = dbQuery {
 
-        // 유저 ID 검증
-        if(userRepository.existsById(userId)) {
+        // 유저 ID 유효성 검증
+        if(userRepository.existsById(userId).not()) {
             throw UserException.NotFound()
         }
 
@@ -31,7 +31,7 @@ class CreateCollection(
 
         // 유저의 부모 컬렉션 여부 검증
         request.parentCollectionId?.let {
-            if(collectionRepository.existsByIdAndUserId(it, userId)) {
+            if(collectionRepository.existsByIdAndUserId(it, userId).not()) {
                 throw CollectionException.NotFound("Parent Collection Not Found")
             }
         }
