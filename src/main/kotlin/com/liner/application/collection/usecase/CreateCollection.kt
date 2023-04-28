@@ -48,7 +48,7 @@ class CreateCollection(
     @Serializable
     data class Request(
         val collectionName: String,
-        val parentCollectionId: Int?
+        val parentCollectionId: Int? = null
     )
 
     @Serializable
