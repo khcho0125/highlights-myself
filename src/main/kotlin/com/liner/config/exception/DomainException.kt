@@ -20,6 +20,11 @@ sealed class DomainException(
         override val code: ErrorCode = DomainErrorCode.NOT_FOUND
     ) : DomainException(message, code)
 
+    open class Conflict(
+        override val message: String? = null,
+        override val code: ErrorCode = DomainErrorCode.CONFLICT
+    ) : DomainException(message, code)
+
     open class InternalError(
         override val message: String? = null,
         override val code: ErrorCode = DomainErrorCode.INTERNAL_SERVER_ERROR
@@ -47,7 +52,8 @@ enum class DomainErrorCode(
     BAD_REQUEST(1, "Bad Request"),
     UNAUTHORIZED(2, "Unauthorized"),
     NOT_FOUND(3, "Not Found"),
-    INTERNAL_SERVER_ERROR(4, "Internal Server Error")
+    CONFLICT(4, "Conflict"),
+    INTERNAL_SERVER_ERROR(5, "Internal Server Error")
 
     ;
 
