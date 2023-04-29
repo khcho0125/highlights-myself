@@ -17,7 +17,7 @@ import org.koin.dsl.module
 
 class HighlightApi(
     saveHighlight: SaveHighlight,
-    storeHighlight: StoreInCollection
+    storeInCollection: StoreInCollection
 ) : Api({
     route("/highlight") {
         post("/{user-id}") {
@@ -38,7 +38,7 @@ class HighlightApi(
             val request: StoreInCollection.Request = call.receive()
 
             call.respond(
-                message = storeHighlight(
+                message = storeInCollection(
                     request = request,
                     highlightId = highlightId
                 )

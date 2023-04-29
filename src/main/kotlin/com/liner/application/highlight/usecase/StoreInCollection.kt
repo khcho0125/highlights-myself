@@ -26,7 +26,7 @@ class StoreInCollection(
         }
 
         // 하이라이트 여부 검사
-         if(highlightRepository.existsById(highlightId)) {
+         if(highlightRepository.existsById(highlightId).not()) {
              throw HighlightException.NotFound()
          }
 
