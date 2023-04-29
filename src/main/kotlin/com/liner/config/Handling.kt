@@ -25,12 +25,6 @@ fun Application.configureHandling() {
             }
         }
     }
-
-    routing {
-        get("/exception") {
-            throw DomainException.BadRequest()
-        }
-    }
 }
 
 private fun getHttpStatus(exception: DomainException): HttpStatusCode = when(exception) {
