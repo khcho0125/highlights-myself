@@ -7,8 +7,6 @@ import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.respond
-import io.ktor.server.routing.get
-import io.ktor.server.routing.routing
 
 fun Application.configureHandling() {
     install(StatusPages) {
@@ -18,8 +16,12 @@ fun Application.configureHandling() {
                     message = ErrorResponse(cause),
                     status = getHttpStatus(cause)
                 )
+                is NumberFormatException -> call.respond(
+                    message = DomainException.BadRequest(cause.message).let(::ErrorResponse),
+                    status = HttpStatusCode.BadRequest
+                )
                 else -> call.respond(
-                    message = DomainException.InternalError(),
+                    message = DomainException.InternalError().let(::ErrorResponse),
                     status = HttpStatusCode.InternalServerError
                 )
             }
