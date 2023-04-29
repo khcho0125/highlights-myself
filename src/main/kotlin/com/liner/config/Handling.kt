@@ -29,7 +29,6 @@ fun Application.configureHandling() {
 
 private fun getHttpStatus(exception: DomainException): HttpStatusCode = when(exception) {
     is DomainException.BadRequest -> HttpStatusCode.BadRequest
-    is DomainException.Unauthorized -> HttpStatusCode.Unauthorized
     is DomainException.NotFound -> HttpStatusCode.NotFound
     is DomainException.Conflict -> HttpStatusCode.Conflict
     is DomainException.InternalError -> HttpStatusCode.InternalServerError
