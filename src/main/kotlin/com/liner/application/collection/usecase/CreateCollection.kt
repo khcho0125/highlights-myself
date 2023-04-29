@@ -15,12 +15,12 @@ class CreateCollection(
 
     suspend operator fun invoke(request: Request, userId: Int): Response = dbQuery {
 
-        // 유저 ID 유효성 검증
+        // 유저 ID 유효성 검사
         if(userRepository.existsById(userId).not()) {
             throw UserException.NotFound()
         }
 
-        // 같은 계층의 이름 중복 검증
+        // 같은 계층의 이름 중복 검사
         if(collectionRepository.existsByUserIdAndNameAndParentId(
             userId = userId,
             name = request.collectionName,
@@ -29,7 +29,7 @@ class CreateCollection(
             throw CollectionException.DuplicatedName()
         }
 
-        // 유저의 부모 컬렉션 여부 검증
+        // 유저의 부모 컬렉션 여부 검사
         request.parentCollectionId?.let {
             if(collectionRepository.existsByIdAndUserId(it, userId).not()) {
                 throw CollectionException.NotFound("Parent Collection Not Found")

@@ -13,6 +13,8 @@ class SaveHighlight(
 ) {
 
     suspend operator fun invoke(request: Request, userId: Int): Response = dbQuery {
+
+        // 유저 ID 유효성 검사
         if(userRepository.existsById(userId).not()) {
             throw UserException.NotFound()
         }
