@@ -9,7 +9,7 @@ class SaveHighlight(
     private val highlightRepository: HighlightRepository
 ) {
 
-    suspend operator fun invoke(request: Request) : Response = dbQuery {
+    suspend operator fun invoke(request: Request): Response = dbQuery {
         val highlightId: Int = highlightRepository.insert(
             Highlight(content = request.content)
         )

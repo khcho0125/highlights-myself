@@ -15,7 +15,7 @@ class StoreInCollection(
     private val highlightRepository: HighlightRepository
 ) {
 
-    suspend operator fun invoke(request: Request, highlightId: Int) : Unit = dbQuery {
+    suspend operator fun invoke(request: Request, highlightId: Int): Unit = dbQuery {
 
         // 하이라이트 여부 검사
          if(highlightRepository.existsById(highlightId)) {
