@@ -1,6 +1,7 @@
 package com.liner.api
 
 import com.liner.application.collection.usecase.CreateCollection
+import com.liner.application.collection.usecase.GetCollection
 import com.liner.config.exception.DomainException
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
@@ -16,7 +17,8 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 class CollectionApi(
-    createCollection: CreateCollection
+    createCollection: CreateCollection,
+    getCollection: GetCollection
 ) : Api({
     route("/collection") {
         post("/{user-id}") {
@@ -30,10 +32,31 @@ class CollectionApi(
                 status = HttpStatusCode.Created
             )
         }
+
+        get("/{user-id}/collections") {
+            val cursorCollectionId: Int? = call.request.queryParameters["cursor-collection-id"]?.toInt()
+
+            val size: Int = call.request.queryParameters["size"]?.toInt()
+                ?: GET_COLLECTION_DEFAULT_SIZE
+
+            val userId: Int = call.parameters["user-id"]?.toInt()
+                ?: throw DomainException.BadRequest("Require User ID")
+
+            call.respond(
+                message = getCollection(userId, cursorCollectionId, size),
+                status = HttpStatusCode.OK
+            )
+        }
     }
-})
+}) {
+
+    companion object {
+        const val GET_COLLECTION_DEFAULT_SIZE: Int = 20
+    }
+}
 
 fun KoinApplication.includeCollection(): Module = module {
     singleOf(::CreateCollection)
+    singleOf(::GetCollection)
     singleOf(::CollectionApi) bind Api::class
 }
