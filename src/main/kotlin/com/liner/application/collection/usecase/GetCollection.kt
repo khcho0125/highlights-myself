@@ -22,14 +22,14 @@ class GetCollection(
         size: Int
     ): Response = dbQuery {
 
-        // 유저 ID 유효성 검증
+        // 유저 ID 유효성 검사
         if(userRepository.existsById(userId).not()) {
             throw UserException.NotFound()
         }
 
-        // 탐색하는 컬렉션 존재 여부 검증
+        // 탐색하는 컬렉션 존재 여부 검사
         cursorCollectionId?.let {
-            if(collectionRepository.existsByIdAndUserId(it, userId)) {
+            if(collectionRepository.existsByIdAndUserId(it, userId).not()) {
                 throw CollectionException.NotFound()
             }
         }
