@@ -33,8 +33,8 @@ class CollectionApi(
             )
         }
 
-        get("/{user-id}/collections") {
-            val cursorCollectionId: Int? = call.request.queryParameters["cursor-collection-id"]?.toInt()
+        get("/{user-id}") {
+            val cursorCollectionId: Int? = call.request.queryParameters["cursorCollectionId"]?.toInt()
 
             val size: Int = call.request.queryParameters["size"]?.toInt()
                 ?: GET_COLLECTION_DEFAULT_SIZE

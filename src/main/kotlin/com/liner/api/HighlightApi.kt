@@ -31,7 +31,7 @@ class HighlightApi(
             )
         }
 
-        post("/{highlight-id}") {
+        post("/{highlight-id}/collections") {
             val highlightId: Int = call.parameters["highlight-id"]?.toInt()
                 ?: throw DomainException.BadRequest("Require Highlight ID")
 
