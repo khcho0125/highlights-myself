@@ -32,7 +32,9 @@ class CollectionApi(
                 status = HttpStatusCode.Created
             )
         }
+    }
 
+    route("/collections") {
         get("/{user-id}") {
             val cursorCollectionId: Int? = call.request.queryParameters["cursorCollectionId"]?.toInt()
 
