@@ -31,7 +31,7 @@ class StoreInCollection(
          }
 
         // 컬렉션 ID 리스트 유효성 검사
-        if(request.collectionIds.all { collectionRepository.existsByIdAndUserId(it, request.userId) }) {
+        if(request.collectionIds.any { collectionRepository.existsByIdAndUserId(it, request.userId).not() }) {
             throw CollectionException.NotFound()
         }
 
