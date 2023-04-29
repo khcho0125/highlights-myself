@@ -10,7 +10,8 @@ import org.jetbrains.exposed.sql.select
 class HighlightQueryFactory : HighlightRepository {
     private fun toDomain(row: ResultRow): Highlight = Highlight(
         id = row[HighlightTable.id].value,
-        content = row[HighlightTable.content]
+        content = row[HighlightTable.content],
+        userId = row[HighlightTable.userId].value
     )
 
     override suspend fun existsById(id: Int): Boolean {
@@ -30,6 +31,7 @@ class HighlightQueryFactory : HighlightRepository {
     override suspend fun insert(highlight: Highlight): Int {
         return HighlightTable.insertAndGetId {
             it[content] = highlight.content
+            it[userId] = highlight.userId
         }.value
     }
 

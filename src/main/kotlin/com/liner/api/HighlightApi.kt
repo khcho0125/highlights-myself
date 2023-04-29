@@ -20,11 +20,13 @@ class HighlightApi(
     storeHighlight: StoreInCollection
 ) : Api({
     route("/highlight") {
-        post {
+        post("/{user-id}") {
             val request: SaveHighlight.Request = call.receive()
+            val userId: Int = call.parameters["user-id"]?.toInt()
+                ?: throw DomainException.BadRequest("Require User ID")
 
-            call.respond(
-                message = saveHighlight(request),
+                call.respond(
+                message = saveHighlight(request, userId),
                 status = HttpStatusCode.Created
             )
         }
