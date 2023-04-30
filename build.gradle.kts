@@ -6,6 +6,8 @@ val koin_version: String by project
 val detekt_version: String by project
 val mysql_version: String by project
 val hikari_version: String by project
+val kotest_version: String by project
+val mockk_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.21"
@@ -45,8 +47,8 @@ dependencies {
     implementation("com.mysql:mysql-connector-j:$mysql_version")
     implementation("com.zaxxer:HikariCP:$hikari_version")
 
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotest_version")
+    testImplementation("io.mockk:mockk:$mockk_version")
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version")
 }
