@@ -16,15 +16,14 @@ object CollectionException {
 
 enum class CollectionErrorCode(
     override val sequence: Int,
-    override val defaultMessage: String
+    override val defaultMessage: String,
 ) : ErrorCode {
 
     NOT_FOUND(1, "Collection Not Found"),
     DUPLICATED_NAME(2, "You have a collection with the same name"),
-    OUT_OF_LENGTH_NAME(3, "Collection Name is over ${Collection.NAME_LENGTH_LIMIT} letters")
+    OUT_OF_LENGTH_NAME(3, "Collection Name is over ${Collection.NAME_LENGTH_LIMIT} letters"),
 
     ;
 
     override val header: String = "COLLECT"
-
 }

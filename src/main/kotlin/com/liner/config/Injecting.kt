@@ -25,7 +25,7 @@ fun Application.configureInject() {
             includeCollection(),
             includeHighlight(),
             includeUser(),
-            includeFactory()
+            includeFactory(),
         )
     }
 }

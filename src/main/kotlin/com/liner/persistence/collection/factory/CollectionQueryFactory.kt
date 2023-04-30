@@ -14,7 +14,7 @@ class CollectionQueryFactory : CollectionRepository {
         id = row[CollectionTable.id].value,
         name = row[CollectionTable.name],
         parentId = row[CollectionTable.parentId]?.value,
-        userId = row[CollectionTable.userId].value
+        userId = row[CollectionTable.userId].value,
     )
 
     override suspend fun findAllByParentIdWithPagination(parentId: Int?, size: Int): List<Collection> {
@@ -34,7 +34,7 @@ class CollectionQueryFactory : CollectionRepository {
         return CollectionTable
             .select {
                 CollectionTable.id eq id and
-                (CollectionTable.userId eq userId)
+                    (CollectionTable.userId eq userId)
             }
             .limit(1)
             .empty().not()
@@ -44,8 +44,8 @@ class CollectionQueryFactory : CollectionRepository {
         return CollectionTable
             .select {
                 CollectionTable.userId eq userId and
-                (CollectionTable.name like name) and
-                (CollectionTable.parentId eq parentId)
+                    (CollectionTable.name like name) and
+                    (CollectionTable.parentId eq parentId)
             }
             .limit(1)
             .empty().not()

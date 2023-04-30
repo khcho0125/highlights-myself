@@ -11,7 +11,7 @@ class HighlightQueryFactory : HighlightRepository {
     private fun toDomain(row: ResultRow): Highlight = Highlight(
         id = row[HighlightTable.id].value,
         content = row[HighlightTable.content],
-        userId = row[HighlightTable.userId].value
+        userId = row[HighlightTable.userId].value,
     )
 
     override suspend fun existsById(id: Int): Boolean {
@@ -34,5 +34,4 @@ class HighlightQueryFactory : HighlightRepository {
             it[userId] = highlight.userId
         }.value
     }
-
 }

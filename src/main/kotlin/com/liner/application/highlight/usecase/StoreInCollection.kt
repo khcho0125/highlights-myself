@@ -4,8 +4,8 @@ import com.liner.config.exception.CollectionException
 import com.liner.config.exception.HighlightException
 import com.liner.config.exception.UserException
 import com.liner.domain.highlight.HighlightStorage
+import com.liner.persistence.Transaction.dbQuery
 import com.liner.persistence.collection.repository.CollectionRepository
-import com.liner.persistence.dbQuery
 import com.liner.persistence.highlight.repository.HighlightRepository
 import com.liner.persistence.highlight.repository.HighlightStorageRepository
 import com.liner.persistence.user.repository.UserRepository
@@ -15,30 +15,29 @@ class StoreInCollection(
     private val collectionRepository: CollectionRepository,
     private val highlightStorageRepository: HighlightStorageRepository,
     private val highlightRepository: HighlightRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) {
 
     suspend operator fun invoke(request: Request, highlightId: Int): Unit = dbQuery {
-
         // 유저 ID 유효성 검사
-        if(userRepository.existsById(request.userId).not()) {
+        if (userRepository.existsById(request.userId).not()) {
             throw UserException.NotFound()
         }
 
-        // 하이라이트 여부 검사
-         if(highlightRepository.existsById(highlightId).not()) {
-             throw HighlightException.NotFound()
-         }
+        // 하이라이트 ID 유효성 검사
+        if (highlightRepository.existsById(highlightId).not()) {
+            throw HighlightException.NotFound()
+        }
 
         // 컬렉션 ID 리스트 유효성 검사
-        if(request.collectionIds.any { collectionRepository.existsByIdAndUserId(it, request.userId).not() }) {
+        if (request.collectionIds.any { collectionRepository.existsByIdAndUserId(it, request.userId).not() }) {
             throw CollectionException.NotFound()
         }
 
         val highlightStorages: List<HighlightStorage> = request.collectionIds.map {
             HighlightStorage(
                 highlightId = highlightId,
-                collectionId = it
+                collectionId = it,
             )
         }
 
@@ -48,6 +47,6 @@ class StoreInCollection(
     @Serializable
     data class Request(
         val userId: Int,
-        val collectionIds: List<Int>
+        val collectionIds: List<Int>,
     )
 }

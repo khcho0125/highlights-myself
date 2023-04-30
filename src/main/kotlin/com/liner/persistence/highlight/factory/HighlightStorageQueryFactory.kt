@@ -11,7 +11,7 @@ class HighlightStorageQueryFactory : HighlightStorageRepository {
 
     private fun toDomain(row: ResultRow): HighlightStorage = HighlightStorage(
         highlightId = row[HighlightStorageTable.highlightId].value,
-        collectionId = row[HighlightStorageTable.collectionId].value
+        collectionId = row[HighlightStorageTable.collectionId].value,
     )
 
     override suspend fun insertAll(storages: List<HighlightStorage>) {

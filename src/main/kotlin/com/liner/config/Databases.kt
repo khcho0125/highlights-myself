@@ -14,7 +14,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Application.configureDatabases() {
     val exposed: Database = Database.connect(
-        ExposedDataSource(environment.config)
+        ExposedDataSource(environment.config),
     )
 
     transaction(exposed) {
@@ -22,20 +22,20 @@ fun Application.configureDatabases() {
             CollectionTable,
             HighlightTable,
             UserTable,
-            HighlightStorageTable
+            HighlightStorageTable,
         )
     }
 }
 
 class ExposedDataSource(
-    config: ApplicationConfig
+    config: ApplicationConfig,
 ) : HikariDataSource(
     HikariConfig().apply {
         driverClassName = config.property(DRIVER).getString()
         username = config.property(USER).getString()
         password = config.property(PASSWD).getString()
         jdbcUrl = config.property(URL).getString()
-    }
+    },
 ) {
 
     companion object Prefix {

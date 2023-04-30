@@ -52,17 +52,17 @@ output-reports:
 comments:
   active: true
   AbsentOrWrongFileLicense:
-    active: true
+    active: false
     licenseTemplateFile: 'license.template'
     licenseTemplateIsRegex: false
   CommentOverPrivateFunction:
-    active: true
+    active: false
   CommentOverPrivateProperty:
     active: true
   DeprecatedBlockTag:
     active: true
   EndOfSentenceFormat:
-    active: true
+    active: false
     endOfSentenceFormat: '([.?!][ \t\n\r\f<])|([.?!:]$)'
   KDocReferencesNonPublicProperty:
     active: true
@@ -73,7 +73,7 @@ comments:
     matchDeclarationsOrder: true
     allowParamOnConstructorProperties: false
   UndocumentedPublicClass:
-    active: true
+    active: false
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
     searchInNestedClass: true
     searchInInnerClass: true
@@ -81,11 +81,11 @@ comments:
     searchInInnerInterface: true
     searchInProtectedClass: false
   UndocumentedPublicFunction:
-    active: true
+    active: false
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
     searchProtectedFunction: false
   UndocumentedPublicProperty:
-    active: true
+    active: false
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
     searchProtectedProperty: false
 
@@ -120,7 +120,7 @@ complexity:
       - 'use'
       - 'with'
   LabeledExpression:
-    active: true
+    active: false
     ignoredLabels: []
   LargeClass:
     active: true
@@ -322,7 +322,7 @@ naming:
     active: true
     forbiddenName: []
   FunctionMaxLength:
-    active: true
+    active: false
     maximumFunctionNameLength: 30
   FunctionMinLength:
     active: true
@@ -502,7 +502,7 @@ style:
   CanBeNonNullable:
     active: true
   CascadingCallWrapping:
-    active: true
+    active: false
     includeElvis: true
   ClassOrdering:
     active: true
@@ -526,7 +526,7 @@ style:
   ExplicitItLambdaParameter:
     active: true
   ExpressionBodySyntax:
-    active: true
+    active: false
     includeLineWrapping: false
   ForbiddenComment:
     active: true
@@ -616,7 +616,7 @@ style:
   OptionalAbstractKeyword:
     active: true
   OptionalUnit:
-    active: true
+    active: false
   OptionalWhenBraces:
     active: true
   PreferToOverPairSyntax:
@@ -648,7 +648,7 @@ style:
     max: 2
     excludeGuardClauses: false
   TrailingWhitespace:
-    active: true
+    active: false
   TrimMultilineRawString:
     active: true
   UnderscoresInNumericLiterals:

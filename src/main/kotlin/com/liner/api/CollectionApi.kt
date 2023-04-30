@@ -18,7 +18,7 @@ import org.koin.dsl.module
 
 class CollectionApi(
     createCollection: CreateCollection,
-    getCollection: GetCollection
+    getCollection: GetCollection,
 ) : Api({
     route("/collection") {
         post("/{user-id}") {
@@ -29,7 +29,7 @@ class CollectionApi(
 
             call.respond(
                 message = createCollection(request, userId),
-                status = HttpStatusCode.Created
+                status = HttpStatusCode.Created,
             )
         }
     }
@@ -46,11 +46,11 @@ class CollectionApi(
 
             call.respond(
                 message = getCollection(userId, cursorCollectionId, size),
-                status = HttpStatusCode.OK
+                status = HttpStatusCode.OK,
             )
         }
     }
-}) {
+},) {
 
     companion object {
         const val GET_COLLECTION_DEFAULT_SIZE: Int = 20

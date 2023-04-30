@@ -4,7 +4,7 @@ import com.liner.domain.collection.Collection
 
 interface CollectionRepository {
 
-    suspend fun findAllByParentIdWithPagination(parentId: Int? ,size: Int): List<Collection>
+    suspend fun findAllByParentIdWithPagination(parentId: Int?, size: Int): List<Collection>
 
     suspend fun findAllByParentIds(parentIds: List<Int>): List<Collection>
 

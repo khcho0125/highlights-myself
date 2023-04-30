@@ -17,7 +17,7 @@ import org.koin.dsl.module
 
 class HighlightApi(
     saveHighlight: SaveHighlight,
-    storeInCollection: StoreInCollection
+    storeInCollection: StoreInCollection,
 ) : Api({
     route("/highlight") {
         post("/{user-id}") {
@@ -25,9 +25,9 @@ class HighlightApi(
             val userId: Int = call.parameters["user-id"]?.toInt()
                 ?: throw DomainException.BadRequest("Require User ID")
 
-                call.respond(
+            call.respond(
                 message = saveHighlight(request, userId),
-                status = HttpStatusCode.Created
+                status = HttpStatusCode.Created,
             )
         }
 
@@ -40,12 +40,12 @@ class HighlightApi(
             call.respond(
                 message = storeInCollection(
                     request = request,
-                    highlightId = highlightId
-                )
+                    highlightId = highlightId,
+                ),
             )
         }
     }
-})
+},)
 
 fun KoinApplication.includeHighlight(): Module = module {
     singleOf(::SaveHighlight)

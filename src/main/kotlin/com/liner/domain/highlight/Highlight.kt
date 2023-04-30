@@ -3,7 +3,7 @@ package com.liner.domain.highlight
 data class Highlight(
     val id: Int = 0,
     val content: String,
-    val userId: Int
+    val userId: Int,
 ) {
 
     companion object {

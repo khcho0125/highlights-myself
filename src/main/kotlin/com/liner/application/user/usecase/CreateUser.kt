@@ -1,12 +1,12 @@
 package com.liner.application.user.usecase
 
 import com.liner.domain.user.User
-import com.liner.persistence.dbQuery
+import com.liner.persistence.Transaction.dbQuery
 import com.liner.persistence.user.repository.UserRepository
 import kotlinx.serialization.Serializable
 
 class CreateUser(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) {
 
     suspend operator fun invoke(): Response = dbQuery {
@@ -16,6 +16,6 @@ class CreateUser(
 
     @Serializable
     data class Response(
-        val userId: Int
+        val userId: Int,
     )
 }

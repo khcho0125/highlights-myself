@@ -14,22 +14,22 @@ fun Application.configureHandling() {
             when (cause) {
                 is DomainException -> call.respond(
                     message = ErrorResponse(cause),
-                    status = getHttpStatus(cause)
+                    status = getHttpStatus(cause),
                 )
                 is NumberFormatException -> call.respond(
                     message = DomainException.BadRequest(cause.message).let(::ErrorResponse),
-                    status = HttpStatusCode.BadRequest
+                    status = HttpStatusCode.BadRequest,
                 )
                 else -> call.respond(
                     message = DomainException.InternalError().let(::ErrorResponse),
-                    status = HttpStatusCode.InternalServerError
+                    status = HttpStatusCode.InternalServerError,
                 )
             }
         }
     }
 }
 
-private fun getHttpStatus(exception: DomainException): HttpStatusCode = when(exception) {
+private fun getHttpStatus(exception: DomainException): HttpStatusCode = when (exception) {
     is DomainException.BadRequest -> HttpStatusCode.BadRequest
     is DomainException.NotFound -> HttpStatusCode.NotFound
     is DomainException.Conflict -> HttpStatusCode.Conflict

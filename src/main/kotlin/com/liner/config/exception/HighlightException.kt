@@ -8,10 +8,10 @@ object HighlightException {
 
 enum class HighlightErrorCode(
     override val sequence: Int,
-    override val defaultMessage: String
+    override val defaultMessage: String,
 ) : ErrorCode {
 
-    NOT_FOUND(1, "Highlight Not Found")
+    NOT_FOUND(1, "Highlight Not Found"),
 
     ;
 

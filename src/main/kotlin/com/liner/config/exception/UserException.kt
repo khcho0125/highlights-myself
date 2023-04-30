@@ -8,10 +8,10 @@ object UserException {
 
 enum class UserErrorCode(
     override val sequence: Int,
-    override val defaultMessage: String
+    override val defaultMessage: String,
 ) : ErrorCode {
 
-    NOT_FOUND(1, "User Not Found")
+    NOT_FOUND(1, "User Not Found"),
 
     ;
 

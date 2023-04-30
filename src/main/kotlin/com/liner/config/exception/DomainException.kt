@@ -2,27 +2,27 @@ package com.liner.config.exception
 
 sealed class DomainException(
     override val message: String?,
-    open val code: ErrorCode
+    open val code: ErrorCode,
 ) : Throwable(message) {
 
     open class BadRequest(
         override val message: String? = null,
-        override val code: ErrorCode = DomainErrorCode.BAD_REQUEST
+        override val code: ErrorCode = DomainErrorCode.BAD_REQUEST,
     ) : DomainException(message, code)
 
     open class NotFound(
         override val message: String? = null,
-        override val code: ErrorCode = DomainErrorCode.NOT_FOUND
+        override val code: ErrorCode = DomainErrorCode.NOT_FOUND,
     ) : DomainException(message, code)
 
     open class Conflict(
         override val message: String? = null,
-        override val code: ErrorCode = DomainErrorCode.CONFLICT
+        override val code: ErrorCode = DomainErrorCode.CONFLICT,
     ) : DomainException(message, code)
 
     open class InternalError(
         override val message: String? = null,
-        override val code: ErrorCode = DomainErrorCode.INTERNAL_SERVER_ERROR
+        override val code: ErrorCode = DomainErrorCode.INTERNAL_SERVER_ERROR,
     ) : DomainException(message, code)
 }
 
@@ -41,13 +41,13 @@ interface ErrorCode {
 
 enum class DomainErrorCode(
     override val sequence: Int,
-    override val defaultMessage: String
+    override val defaultMessage: String,
 ) : ErrorCode {
 
     BAD_REQUEST(1, "Bad Request"),
     NOT_FOUND(2, "Not Found"),
     CONFLICT(3, "Conflict"),
-    INTERNAL_SERVER_ERROR(4, "Internal Server Error")
+    INTERNAL_SERVER_ERROR(4, "Internal Server Error"),
 
     ;
 

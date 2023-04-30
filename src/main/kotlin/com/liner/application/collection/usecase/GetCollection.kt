@@ -4,8 +4,8 @@ import com.liner.config.exception.CollectionException
 import com.liner.config.exception.UserException
 import com.liner.domain.collection.Collection
 import com.liner.domain.highlight.HighlightStorage
+import com.liner.persistence.Transaction.dbQuery
 import com.liner.persistence.collection.repository.CollectionRepository
-import com.liner.persistence.dbQuery
 import com.liner.persistence.highlight.repository.HighlightStorageRepository
 import com.liner.persistence.user.repository.UserRepository
 import kotlinx.serialization.Serializable
@@ -13,23 +13,18 @@ import kotlinx.serialization.Serializable
 class GetCollection(
     private val collectionRepository: CollectionRepository,
     private val highlightStorageRepository: HighlightStorageRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) {
 
-    suspend operator fun invoke(
-        userId: Int,
-        cursorCollectionId: Int?,
-        size: Int
-    ): Response = dbQuery {
-
+    suspend operator fun invoke(userId: Int, cursorCollectionId: Int?, size: Int): Response = dbQuery {
         // 유저 ID 유효성 검사
-        if(userRepository.existsById(userId).not()) {
+        if (userRepository.existsById(userId).not()) {
             throw UserException.NotFound()
         }
 
         // 탐색하는 컬렉션 존재 여부 검사
         cursorCollectionId?.let {
-            if(collectionRepository.existsByIdAndUserId(it, userId).not()) {
+            if (collectionRepository.existsByIdAndUserId(it, userId).not()) {
                 throw CollectionException.NotFound()
             }
         }
@@ -37,7 +32,7 @@ class GetCollection(
         // 최상위 컬렉션 쿼리
         val collections: List<Collection> = collectionRepository.findAllByParentIdWithPagination(
             parentId = cursorCollectionId,
-            size = size
+            size = size,
         )
 
         // 하위 컬렉션 로드 및 반환
@@ -94,7 +89,7 @@ class GetCollection(
             .findAllByCollectionIds(collectionIds)
             .groupBy(
                 keySelector = HighlightStorage::collectionId,
-                valueTransform = HighlightStorage::highlightId
+                valueTransform = HighlightStorage::highlightId,
             )
 
         // 반환할 현재 계층 전체 하이라이트 집합
@@ -117,32 +112,32 @@ class GetCollection(
                 collectionId = collection.id,
                 name = collection.name,
                 highlightCount = collectionHighlightSet.size,
-                children = children.collections
+                children = children.collections,
             )
         }
 
         return CollectionData(
             collections = collections,
-            entireHighlightSet = entireHighlightSet
+            entireHighlightSet = entireHighlightSet,
         )
     }
-    
+
     data class CollectionData(
         val entireHighlightSet: Set<Int>,
-        val collections: List<CollectionView>
+        val collections: List<CollectionView>,
     ) {
 
         companion object {
             val EMPTY: CollectionData = CollectionData(
                 entireHighlightSet = setOf(),
-                collections = listOf()
+                collections = listOf(),
             )
         }
     }
 
     @Serializable
     data class Response(
-        val collections: List<CollectionView>
+        val collections: List<CollectionView>,
     )
 
     @Serializable
@@ -150,6 +145,6 @@ class GetCollection(
         val collectionId: Int,
         val highlightCount: Int,
         val name: String,
-        val children: List<CollectionView>
+        val children: List<CollectionView>,
     )
 }
