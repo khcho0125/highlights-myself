@@ -93,7 +93,7 @@ class GetCollection(
             )
 
         // 반환할 현재 계층 전체 하이라이트 집합
-        val entireHighlightSet: MutableSet<Int> = mutableSetOf()
+        val entireHighlightSet: MutableSet<Int> = LinkedHashSet()
 
         val collections: List<CollectionView> = this.map { collection ->
 
@@ -103,7 +103,7 @@ class GetCollection(
 
             // 현재 계층 컬렉션에 포함된 전체 하이라이트 집합
             val collectionHighlightSet: Set<Int> = children.entireHighlightSet
-                .union(highlightSet.getOrDefault(collection.id, listOf()))
+                .union(highlightSet.getOrDefault(collection.id, emptyList()))
 
             // 현재 계층 전체 하이라이트 집합 병합
             entireHighlightSet.addAll(collectionHighlightSet)
@@ -129,8 +129,8 @@ class GetCollection(
 
         companion object {
             val EMPTY: CollectionData = CollectionData(
-                entireHighlightSet = setOf(),
-                collections = listOf(),
+                entireHighlightSet = emptySet(),
+                collections = emptyList(),
             )
         }
     }

@@ -7,6 +7,6 @@ val collectionFixture: Collection by lazy {
         id = 1,
         name = "컬렉션",
         parentId = null,
-        userId = 1
+        userId = 1,
     )
 }

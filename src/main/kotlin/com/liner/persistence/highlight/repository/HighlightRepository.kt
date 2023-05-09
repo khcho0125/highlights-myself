@@ -8,5 +8,7 @@ interface HighlightRepository {
 
     suspend fun findById(id: Int): Highlight?
 
+    suspend fun findAllByCollectionIdWithPagination(collectionId: Int?, size: Int): List<Highlight>
+
     suspend fun insert(highlight: Highlight): Int
 }

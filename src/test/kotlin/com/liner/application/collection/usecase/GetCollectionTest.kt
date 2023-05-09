@@ -24,7 +24,7 @@ class GetCollectionTest : BaseApplicationTest({
     val getCollection = GetCollection(
         collectionRepository = collectionRepository,
         highlightStorageRepository = highlightStorageRepository,
-        userRepository = userRepository
+        userRepository = userRepository,
     )
 
     describe("컬렉션 목록을 가져올 때") {
@@ -51,8 +51,8 @@ class GetCollectionTest : BaseApplicationTest({
                     collectionId = collection.id,
                     highlightCount = highlightStorages.size,
                     name = collection.name,
-                    children = listOf(),
-                )
+                    children = emptyList(),
+                ),
             ),
         )
 
@@ -79,11 +79,13 @@ class GetCollectionTest : BaseApplicationTest({
 
         coEvery { userRepository.existsById(userId) } returns true
         coEvery { collectionRepository.existsByIdAndUserId(cursorCollectionId, userId) } returns true
-        coEvery { collectionRepository.findAllByParentIdWithPagination(
-            parentId = cursorCollectionId,
-            size = size
-        ) } returns collections
-        coEvery { collectionRepository.findAllByParentIds(collectionIds) } returns listOf()
+        coEvery {
+            collectionRepository.findAllByParentIdWithPagination(
+                parentId = cursorCollectionId,
+                size = size,
+            )
+        } returns collections
+        coEvery { collectionRepository.findAllByParentIds(collectionIds) } returns emptyList()
         coEvery { highlightStorageRepository.findAllByCollectionIds(collectionIds) } returns highlightStorages
 
         it("Response를 반환한다.") {
@@ -92,4 +94,4 @@ class GetCollectionTest : BaseApplicationTest({
             result shouldBe response
         }
     }
-})
+},)

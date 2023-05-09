@@ -813,7 +813,7 @@ formatting:
     active: true
     autoCorrect: true
   NoConsecutiveBlankLines:
-    active: true
+    active: false
     autoCorrect: true
   NoEmptyClassBody:
     active: true
@@ -834,7 +834,7 @@ formatting:
     active: true
     autoCorrect: true
   NoTrailingSpaces:
-    active: true
+    active: false
     autoCorrect: true
   NoUnitReturn:
     active: true
@@ -912,7 +912,7 @@ formatting:
     autoCorrect: true
     useTrailingCommaOnDeclarationSite: true
   TypeArgumentListSpacing:
-    active: true
+    active: false
     autoCorrect: true
   TypeParameterListSpacing:
     active: true

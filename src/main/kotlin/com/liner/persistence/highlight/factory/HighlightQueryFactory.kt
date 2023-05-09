@@ -1,6 +1,7 @@
 package com.liner.persistence.highlight.factory
 
 import com.liner.domain.highlight.Highlight
+import com.liner.persistence.highlight.entity.HighlightStorageTable
 import com.liner.persistence.highlight.entity.HighlightTable
 import com.liner.persistence.highlight.repository.HighlightRepository
 import org.jetbrains.exposed.sql.ResultRow
@@ -26,6 +27,13 @@ class HighlightQueryFactory : HighlightRepository {
             .select { HighlightTable.id eq id }
             .singleOrNull()
             ?.let(::toDomain)
+    }
+
+    override suspend fun findAllByCollectionIdWithPagination(collectionId: Int?, size: Int): List<Highlight> {
+        return (HighlightStorageTable rightJoin HighlightTable)
+            .select { HighlightStorageTable.collectionId eq collectionId }
+            .limit(size)
+            .map(::toDomain)
     }
 
     override suspend fun insert(highlight: Highlight): Int {
