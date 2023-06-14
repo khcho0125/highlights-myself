@@ -58,8 +58,6 @@ ERD는 `ERDCloud`를 활용해 작성했습니다.
 
 ### 5. Trouble Shooting
 
-> #### 과제를 진행하며 마주친 문제를 기록합니다.
-
-#### 마주친 문제는 [Issues](https://github.com/khcho0125/highlights_myself/issues)에 기록해두었습니다.
+마주친 문제는 [Issues](https://github.com/khcho0125/highlights_myself/issues)에 기록해두었습니다.
 
 
